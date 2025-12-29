@@ -9,21 +9,18 @@ class TelegramUser(models.Model):
         return f"{self.username or self.first_name} ({self.user_id})"
 
 class Message(models.Model):
-	STATUS_CHOICES=[
-		('sender', 'Sender'),
-		('receiver', 'Receiver')
-	]
-
 	user = models.ForeignKey(TelegramUser, on_delete=models.CASCADE, related_name='messages')
 
 	text = models.TextField()
 	message_id = models.IntegerField()	# for later reply
 
 	created_at = models.DateTimeField(auto_now_add=True)
-	status = models.CharField(max_length=10, choices=STATUS_CHOICES)
+	is_bot = models.BooleanField(default=False)
 
 	class Meta:
 		ordering = ['-created_at']
 
 	def __str__(self):
-		return f"[{self.status}]: \n\t[{self.text}]"
+		sender = "BOT" if self.is_bot else "USER"
+		return f"[{sender}] ({self.user.user_id}): {self.text[:50]}"
+          
