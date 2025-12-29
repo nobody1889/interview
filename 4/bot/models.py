@@ -8,7 +8,7 @@ class TelegramUser(models.Model):
     def __str__(self):
         return f"{self.username or self.first_name} ({self.user_id})"
 
-class Message(models.Models):
+class Message(models.Model):
 	STATUS_CHOICES=[
 		('sender', 'Sender'),
 		('receiver', 'Receiver')
@@ -19,7 +19,7 @@ class Message(models.Models):
 	text = models.TextField()
 	message_id = models.IntegerField()	# for later reply
 
-	create_at = models.DateTimeField(auto_now_add=True)
+	created_at = models.DateTimeField(auto_now_add=True)
 	status = models.CharField(max_length=10, choices=STATUS_CHOICES)
 
 	class Meta:
