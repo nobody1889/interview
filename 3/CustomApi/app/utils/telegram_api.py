@@ -28,6 +28,7 @@ class TelegtamApi():
         return response
     
     async def get_updates(self, offset: int | None = None):
+        print("offset is: ", offset)
         method = "/getUpdates"
         url = self.base_url + method
 
