@@ -1,5 +1,5 @@
 from aiogram import Router, types
-from aiogram.filters import CommandStart, CommandHelp
+from aiogram.filters import CommandStart
 router = Router(name="commonds")
 
 @router.command("start")
