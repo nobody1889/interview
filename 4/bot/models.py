@@ -7,6 +7,8 @@ class Message(models.Models):
 	]
 	
 	text = models.TextField()
+	message_id = models.IntegerField()	# for later reply
+
 	create_at = models.DateTimeField(auto_now_add=True)
 	status = models.CharField(max_length=10, choices=STATUS_CHOICES)
 
