@@ -30,7 +30,7 @@ class TelegtamApi():
             )
         return response
     
-    async def get_updates(self, offset: int | None = None):
+    async def get_updates(self, offset: int | None = None) -> tuple:
         print("offset is: ", offset)
         method = "/getUpdates"
         url = self.base_url + method
@@ -43,5 +43,14 @@ class TelegtamApi():
             url,
             params=payload
             )
-        
-        return response
+        data = response.json()
+
+        if data["ok"]:
+            updates = data.get("result", [])
+            if updates:
+                return updates, updates[-1]["update_id"] + 1
+            else:
+                return [], offset
+        else:
+            print("Error fetching updates:", data)
+            return [], offset
