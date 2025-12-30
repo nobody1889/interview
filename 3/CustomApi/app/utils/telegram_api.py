@@ -1,5 +1,8 @@
 import httpx
 from os import environ
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class TelegtamApi():
     def __init__(self):
