@@ -30,6 +30,27 @@ class TelegtamApi():
             )
         return response
     
+    async def send_sticker(self, chat_id, sticker_file_id):
+        url = self.base_url + "/sendSticker"
+        return await self.client.post(url, params={
+            "chat_id": chat_id,
+            "sticker": sticker_file_id
+        })
+
+    async def send_document(self, chat_id, file_id):
+        url = self.base_url + "/sendDocument"
+        return await self.client.post(url, params={
+            "chat_id": chat_id,
+            "document": file_id
+        })
+
+    async def send_photo(self, chat_id, file_id):
+        url = self.base_url + "/sendPhoto"
+        return await self.client.post(url, params={
+            "chat_id": chat_id,
+            "photo": file_id
+        })
+    
     async def get_updates(self, offset: int | None = None) -> tuple:
         print("offset is: ", offset)
         method = "/getUpdates"
