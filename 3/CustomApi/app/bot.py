@@ -9,5 +9,5 @@ class Bot:
 
     async def run(self):
         while True:
-            updates = await self.api.get_updates(self.offset)
+            updates, self.offset = await self.api.get_updates(self.offset)
             await core(self.api, updates)
