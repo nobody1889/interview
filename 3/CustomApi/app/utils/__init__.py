@@ -1,4 +1,4 @@
-from telegram_api import TelegtamApi
+from .telegram_api import TelegtamApi
 
 
 __all__ = [
