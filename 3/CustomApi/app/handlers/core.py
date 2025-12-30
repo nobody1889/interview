@@ -12,19 +12,35 @@ async def core(api, updates):
         
         message = update["message"]
         chat_id = message["chat"]["id"]
-        text = message.get("text", "")
 
-        if text.startswith("/"):
-            command = text.split()[0]  
+        if "text" in message:
+            text = message["text"]
 
-            if command == "/start":
-                await start_command(api, chat_id)
+            if text.startswith("/"):
+                cmd = text.split()[0]
 
-            elif command == "/help":
-                await help_command(api, chat_id)
+                if cmd == "/start":
+                    await start_command(api, chat_id)
 
+                elif cmd == "/help":
+                    await help_command(api, chat_id)
+                    
+                else:
+                    await api.send_message(chat_id, "Unknown command")
             else:
-                await api.send_message(chat_id, f"Unknown command: {command}")
-        
-        elif text:
-            await echo_feature(api, chat_id, text)
+                await echo_feature(api, chat_id, text)
+
+        elif "sticker" in message:
+            sticker_id = message["sticker"]["file_id"]
+            await api.send_sticker(chat_id, sticker_id)
+
+        elif "photo" in message:
+            photo_id = message["photo"][-1]["file_id"]
+            await api.send_photo(chat_id, photo_id)
+
+        elif "document" in message:
+            doc_id = message["document"]["file_id"]
+            await api.send_document(chat_id, doc_id)
+
+        else:
+            await api.send_message(chat_id, "Unsupported message type")
