@@ -1,11 +1,11 @@
-from commands.start import start_command
-from commands.help import help_command
-from feature.echo import echo_feature
+from .commands.start import start_command
+from .commands.help import help_command
+from .feature.echo import echo_feature
 
 async def core(api, updates):
     if not updates:
         return
-
+    
     for update in updates:
         if "message" not in update:
             continue
